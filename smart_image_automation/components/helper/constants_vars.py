@@ -1,0 +1,1 @@
+IMAGES_BASE_PATH = 'pyautogui_agent/images/'
