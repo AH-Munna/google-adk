@@ -1,7 +1,7 @@
 # from openai import OpenAI
 
 # client = OpenAI(
-#     api_key="AIzaSyCCOu0rGJYoC7h4hPF-quQMn4PftS6HRTU",
+#     api_key="",
 #     base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 # )
 
