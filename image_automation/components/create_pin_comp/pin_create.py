@@ -1,11 +1,12 @@
-from smart_image_automation.components.helper.groq_api import groq_prompt_gen, groq_title_divider
+from image_automation.components.helper.groq_api import groq_prompt_gen, groq_title_divider
 from pyautogui import click, moveTo, hotkey, hotkey, position
 from time import sleep
 import sys
-from smart_image_automation.components.helper.find_image import find_image
+from image_automation.components.helper.find_image import find_image
 from pyperclip import copy, paste
-from smart_image_automation.components.helper.play_audio import play_audio
-from smart_image_automation.components.helper.constants_vars import IMAGES_BASE_PATH
+from image_automation.components.helper.play_audio import play_audio
+from image_automation.components.helper.constants_vars import IMAGES_BASE_PATH
+from image_automation.components.helper.execution_finished import task_executed
 
 def regen_fail_check():
     if faile_regen_loc:=find_image(f'{IMAGES_BASE_PATH}create_pin/deepseek_failed.png', 0.6, 2):
@@ -73,22 +74,22 @@ def pin_create(type_of_execution='api', thinking_model='y', browser_tab='season'
 
             sleep(1)
             print("\033[32mPrompt generated.\033[0m")
-            play_audio('pyautogui_agent/audio/generate_image_en.wav')
+            # play_audio('image_automation/audio/generate_image_en.wav')
             sleep(1)
             print("\033[32mTrying to generate image...\033[0m")
             sleep(1)
             if browser_tab == 'season':
                 print('\033[32mClicking on season inspired tab...\033[0m')
-                click(find_image('pyautogui_agent/images/tabs/seasoninspired_chrome.png', 0.8), duration=1)
+                click(find_image('image_automation/images/tabs/seasoninspired_chrome.png', 0.8), duration=1)
             elif browser_tab == 'midgeos':
                 print('\033[32mClicking on season inspired tab...\033[0m')
-                click(find_image('pyautogui_agent/images/tabs/midgeos_chrome.png', 0.8), duration=1)
+                click(find_image('image_automation/images/tabs/midgeos_chrome.png', 0.9), duration=1)
             elif browser_tab == 'red':
-                click(find_image('pyautogui_agent/images/tabs/red_chrome.png', 0.8), duration=1)
+                click(find_image('image_automation/images/tabs/red_chrome.png', 0.8), duration=1)
 
         elif type_of_execution == 'web':  # Not managed, keeping original logic
-            click(find_image('pyautogui_agent/images/tabs/seasoninspired_chrome.png', 0.7), duration=0.5)
-            click(find_image('pyautogui_agent/images/tabs/deepseek.png', 0.7), duration=1)
+            click(find_image('image_automation/images/tabs/seasoninspired_chrome.png', 0.7), duration=0.5)
+            click(find_image('image_automation/images/tabs/deepseek.png', 0.7), duration=1)
             title_prepare()
             prompt_create()
         else:
@@ -96,6 +97,7 @@ def pin_create(type_of_execution='api', thinking_model='y', browser_tab='season'
             return {"status": "error", "report": "Invalid type of execution"}
         
         image_create()
+        task_executed()
         return {"status": "success", "report": f"image is being generated in ideogram using this prompt: {paste()}\nyou can check ideogram to see if it's ready."}
     except ValueError:
         print("\033[31mInvalid input\033[0m")

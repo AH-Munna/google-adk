@@ -1,13 +1,13 @@
 from pyautogui import click, moveTo, hotkey, write, position, doubleClick
 from time import sleep
-from smart_image_automation.components.helper.find_image import find_image
-from smart_image_automation.components.helper.play_audio import play_audio
+from image_automation.components.helper.find_image import find_image
+from image_automation.components.helper.play_audio import play_audio
 
 # Define constants for better readability
-IMAGE_BASE_PATH = 'pyautogui_agent/images/pin_upload/'
+IMAGE_BASE_PATH = 'image_automation/images/pin_upload/'
 CONFIDENCE_THRESHOLD = 0.8
 
-def find_and_click(image_name, x_offset=0, y_offset=0, duration=0.2, base_path=IMAGE_BASE_PATH):
+def find_and_click(image_name, x_offset=0, y_offset=0, duration=0.2, base_path=IMAGE_BASE_PATH) -> dict:
     """Helper function to find an image and click on it with optional offsets."""
     full_path = f"{base_path}{image_name}"
     image_loc = find_image(full_path, CONFIDENCE_THRESHOLD)
@@ -16,7 +16,7 @@ def find_and_click(image_name, x_offset=0, y_offset=0, duration=0.2, base_path=I
         return {"success": False, "message": f"{full_path} not found"}
     
     click(image_loc.left + x_offset, image_loc.top + y_offset, duration=duration)
-    return {"success": True}
+    return {"success": True, "message": f"Clicked on {full_path}"}
 
 def create_new():
     """Create a new Pinterest pin and prepare for image upload."""
@@ -51,7 +51,7 @@ def paste_from_clipboard(field_image, y_offset=0):
     hotkey('ctrl', 'a')
     hotkey('win', 'v')
     
-    clipboard_result = find_and_click('clipboard.png', x_offset=150, y_offset=y_offset, base_path='pyautogui_agent/images/')
+    clipboard_result = find_and_click('clipboard.png', x_offset=150, y_offset=y_offset, base_path='image_automation/images/')
     return clipboard_result
 
 def paste_texts(board_name, board_pos):
@@ -102,10 +102,10 @@ def pinterest_upload(num_of_images:int=1, board_name:str="", board_pos:int=1):
     - str: Success or error message.
     """
     # Play audio notification
-    # play_audio('pyautogui_agent/audio/pinterest_upload_jp.wav')
+    # play_audio('image_automation/audio/pinterest_upload_jp.wav')
     
     # Switch to Pinterest tab
-    chrome_tab_result = find_and_click('pinterest_chrome.png', base_path='pyautogui_agent/images/tabs/')
+    chrome_tab_result = find_and_click('pinterest_chrome.png', base_path='image_automation/images/tabs/')
     if not chrome_tab_result["success"]:
         return chrome_tab_result["message"]
     

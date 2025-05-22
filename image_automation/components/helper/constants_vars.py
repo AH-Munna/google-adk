@@ -1,0 +1,1 @@
+IMAGES_BASE_PATH = 'image_automation/images/'

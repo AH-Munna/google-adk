@@ -1,27 +1,27 @@
 from google.adk.agents import Agent
-from google.adk.tools import google_search
 from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
+from simple_tool_agent.components.pdf_generator2 import generate_pdf
 
 instruction = """
-    Agent to answer questions using Google Search.
-    It can also help with AI agent development and python programming.
-"""
-description = """
-    I can help with AI agent development and python programming. I can answer your questions by searching the internet. Just ask me agent development or python programming related queries!
+generate_pdf: This ai assistant can generate a pdf document.
 """
 
-APP_NAME="information_and_coding_agent"
+description = """
+This ai assistant can generate a pdf document based on the given list items and a title.
+"""
+
+APP_NAME="simple_tool_agent"
 USER_ID="user1234"
 SESSION_ID="1234"
 
 # pyautogui agent.
 root_agent = Agent(
     name=APP_NAME,
-    model="gemini-2.0-flash-001",
+    model="gemini-2.5-pro-exp-03-25",
     description=description,
     instruction=instruction,
-    tools=[google_search],
+    tools=[generate_pdf],
 )
 
 

@@ -1,8 +1,8 @@
 from pyautogui import click, moveTo, hotkey, hotkey, write, position, doubleClick
 from time import sleep
-from smart_image_automation.components.helper.find_image import find_image
-from smart_image_automation.components.helper.play_audio import play_audio
-from smart_image_automation.components.helper.constants_vars import IMAGES_BASE_PATH
+from image_automation.components.helper.find_image import find_image
+from image_automation.components.helper.play_audio import play_audio
+from image_automation.components.helper.constants_vars import IMAGES_BASE_PATH
 
 def create_new():
     click(find_image(f'{IMAGES_BASE_PATH}pin_upload/new_pin.png', 0.8), duration=0.2)
@@ -54,7 +54,7 @@ def pinterest_upload(num_of_image:int=1, board_name:str|None=None, board_pos:int
     - board_name (str): Name of the Pinterest board.
     - board_pos (int, optional): Position of the board (default is 1).
     """
-    # play_audio('pyautogui_agent/audio/pinterest_upload_jp.wav')
+    # play_audio('image_automation/audio/pinterest_upload_jp.wav')
     click(find_image(f'{IMAGES_BASE_PATH}tabs/pinterest_chrome.png', 0.8))
     for i in range(num_of_image):
         create_new()

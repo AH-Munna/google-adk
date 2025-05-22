@@ -1,4 +1,4 @@
-from smart_image_automation.components.upload_to_canva_comp.upload_settings import upload_to_canva_settings
+from image_automation.components.upload_to_canva_comp.upload_settings import upload_to_canva_settings
 
 
 def image_upload_canva(number_of_image:int=10, downloaded_image_pos:int=0) -> dict:
